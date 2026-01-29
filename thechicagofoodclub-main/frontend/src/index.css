@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800;900&display=swap');
+@import "tailwindcss";
+@layer utilities {
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+}
+/* @layer base {
+  html, body {
+    font-family: 'Times New Roman', Times, serif;
+  }
+} */
+
+@keyframes waterfall {
+    0% {
+      background-position: 0% 200%;
+    }
+    25% {
+      background-position: 0% 150%;
+    }
+    50% {
+      background-position: 0% 100%;
+    }
+    75% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+.waterfall-line {
+  background: linear-gradient(to top, #CEB27C, transparent);
+  background-size: 100% 200%;
+  animation: waterfall 2s linear infinite;
+}

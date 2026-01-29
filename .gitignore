@@ -1,0 +1,127 @@
+# ========================
+# Dependencies
+# ========================
+node_modules/
+**/node_modules/
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.*
+!.env.sample
+!.env.example
+*.env
+
+# Directories containing env files (project-specific)
+Backend env/
+frontend env/
+
+# ========================
+# Build Outputs
+# ========================
+dist/
+build/
+out/
+.vite/
+
+# ========================
+# IDE & Editor
+# ========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ========================
+# OS System Files
+# ========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ========================
+# Testing
+# ========================
+coverage/
+.nyc_output/
+
+# ========================
+# TypeScript
+# ========================
+*.tsbuildinfo
+
+# ========================
+# Temporary Files
+# ========================
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ========================
+# Package Manager Locks (optional - uncomment if you don't want to track)
+# ========================
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ========================
+# Secrets & Credentials
+# ========================
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+service-account*.json
+
+# AWS
+.aws/
+aws-credentials*
+
+# ========================
+# Database
+# ========================
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+
+# ========================
+# Drizzle ORM
+# ========================
+# Note: Keep migrations/ tracked for version control
+# drizzle/
+
+# ========================
+# Supabase
+# ========================
+.supabase/
+
+# ========================
+# Miscellaneous
+# ========================
+.cache/
+.parcel-cache/
+.turbo/
+
+# ========================
+# Archives
+# ========================
+*.zip
+*.tar.gz
+*.rar
