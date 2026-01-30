@@ -42,27 +42,47 @@ const respondToMembershipRequest = async (req, res) => {
     };
 
     if (action === "approved") {
-      const randomPassword = generateRandomPassword();
-      const hashedPassword = await bcrypt.hash(randomPassword, 10);
+      // Check if user already exists
+      const existingUser = await database.query.user.findFirst({
+        where: eq(user.email, request.email),
+      });
 
-      const [newUser] = await database
-        .insert(user)
-        .values({
-          email: request.email,
-          fullName: request.fullName,
-          phone: request.phoneNumber,
-          password: hashedPassword,
-          isVerified: true,
-        })
-        .returning();
+      let targetUser;
+      let randomPassword = null;
 
-      updateData.userId = newUser.id;
+      if (existingUser) {
+        // User exists — link them and activate
+        targetUser = existingUser;
+        await database
+          .update(user)
+          .set({ isVerified: true, isActive: true })
+          .where(eq(user.id, existingUser.id));
+      } else {
+        // Create new user
+        randomPassword = generateRandomPassword();
+        const hashedPassword = await bcrypt.hash(randomPassword, 10);
+
+        const [newUser] = await database
+          .insert(user)
+          .values({
+            email: request.email,
+            fullName: request.fullName,
+            phone: request.phoneNumber,
+            password: hashedPassword,
+            isVerified: true,
+          })
+          .returning();
+
+        targetUser = newUser;
+      }
+
+      updateData.userId = targetUser.id;
 
       const { subject, html } = generateMembershipEmail({
         type: "approved",
         fullName: request.fullName,
         email: request.email,
-        password: randomPassword,
+        password: randomPassword, // null if existing user
       });
 
       try {

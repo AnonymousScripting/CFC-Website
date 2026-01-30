@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Layout from "./componenets/Layout";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import { Login } from "./pages/Login";
 import { ForgotPassword } from "./pages/ForgotPassword";
