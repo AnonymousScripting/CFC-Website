@@ -65,7 +65,11 @@ const respondToMembershipRequest = async (req, res) => {
         password: randomPassword,
       });
 
-      await sendEmail(subject, html, request.email);
+      try {
+        await sendEmail(subject, html, request.email);
+      } catch (error) {
+        console.warn('Email notification failed (non-critical):', error.message);
+      }
     }
 
     if (action === "rejected") {
@@ -75,7 +79,11 @@ const respondToMembershipRequest = async (req, res) => {
         reason: rejectionReason,
       });
 
-      await sendEmail(subject, html, request.email);
+      try {
+        await sendEmail(subject, html, request.email);
+      } catch (error) {
+        console.warn('Email notification failed (non-critical):', error.message);
+      }
     }
 
     await database
@@ -191,18 +199,26 @@ const changeVerificationStatus = async (req, res) => {
       return res.status(404).json({ success: false, error: "User not found" });
     }
 
-    // Send email based on status
+    // Send email based on status (non-blocking)
     if (isVerified) {
       const { subject, html } = generateActivationEmail({
         fullName: updatedUser.fullName,
       });
-      await sendEmail(subject, html, updatedUser.email);
+      try {
+        await sendEmail(subject, html, updatedUser.email);
+      } catch (error) {
+        console.warn('Activation email failed (non-critical):', error.message);
+      }
     } else {
       const { subject, html } = generateDeactivationEmail({
         fullName: updatedUser.fullName,
         reason: reason || "No reason provided",
       });
-      await sendEmail(subject, html, updatedUser.email);
+      try {
+        await sendEmail(subject, html, updatedUser.email);
+      } catch (error) {
+        console.warn('Deactivation email failed (non-critical):', error.message);
+      }
     }
 
     return res.json({ success: true, user: updatedUser });
