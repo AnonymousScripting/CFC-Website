@@ -9,7 +9,6 @@ import { updateUser } from "../../redux/user/userSlice";
 import MemberDirectory from "../../componenets/MemberDirectory";
 
 export default function UserDashboard() {
-  const [headerHeight, setHeaderHeight] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
   const [approvedMembers, setApprovedMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,23 +46,6 @@ export default function UserDashboard() {
     setIsModalOpen(true);
   };
 
-  useEffect(() => {
-    const header = document.querySelector("header");
-    if (header) {
-      setHeaderHeight(header.offsetHeight);
-    }
-
-    const handleResize = () => {
-      const header = document.querySelector("header");
-      if (header) {
-        setHeaderHeight(header.offsetHeight);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   function getInitials(fullname = "") {
     return fullname
       .split(" ")
@@ -82,10 +64,7 @@ export default function UserDashboard() {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-   <div
-  className="bg-gray-100 min-h-screen"
-  style={{ marginTop: headerHeight }}
->
+   <div className="bg-gray-100 min-h-screen">
   <UserHeader
     user={{
       initials: getInitials(currentUser?.fullName || ""),

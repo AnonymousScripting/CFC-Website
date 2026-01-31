@@ -19,6 +19,7 @@ const user = pgTable("users", {
   profilePicturePath: varchar("profile_picture_path", { length: 255 }),
   isVerified: boolean("is_verified").default(false),
   isAdmin: boolean("is_admin").default(false),
+  isTemporaryPassword: boolean("is_temporary_password").default(false),
   lastLoginAt: timestamp("last_login_at").defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

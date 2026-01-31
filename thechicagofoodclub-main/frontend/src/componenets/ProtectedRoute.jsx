@@ -14,6 +14,11 @@ const ProtectedRoute = ({ role, children }) => {
     return <Navigate to="/login" replace />;
   }
 
+  // Force password change for users with temporary password
+  if (currentUser?.isTemporaryPassword) {
+    return <Navigate to="/change-password" replace />;
+  }
+
   return children;
 };
 

@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import { Login } from "./pages/Login";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
+import { ChangePassword } from "./pages/ChangePassword";
 import AdminDashboard from "./pages/admin/dashboard";
 import UserDashboard from "./pages/user/dashboard";
 import ProtectedRoute from "./componenets/ProtectedRoute";
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/cookies" element={<CookiePolicy />} />

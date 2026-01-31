@@ -39,7 +39,13 @@ const login = async (req, res) => {
 
     const token = await createJWTToken(data.id);
 
-    return successResponse(res, "Login Successfully", { data, token });
+    return successResponse(res, "Login Successfully", { 
+      data: {
+        ...data,
+        isTemporaryPassword: data.isTemporaryPassword || false,
+      }, 
+      token 
+    });
   } catch (error) {
     return errorResponse(res, error.message, 500);
   }
@@ -172,10 +178,54 @@ const resetPassword = async (req, res) => {
 }
 
 
+const changePassword = async (req, res) => {
+  try {
+    const { userId, currentPassword, newPassword } = req.body;
+
+    if (!userId || !currentPassword || !newPassword) {
+      return errorResponse(res, "userId, currentPassword, and newPassword are required", 400);
+    }
+
+    const data = await database.query.user.findFirst({
+      where: eq(user.id, userId),
+    });
+
+    if (!data) {
+      return errorResponse(res, "User not found", 404);
+    }
+
+    const isPasswordValid = await bcrypt.compare(currentPassword, data.password);
+    if (!isPasswordValid) {
+      return errorResponse(res, "Current password is incorrect", 401);
+    }
+
+    const isSamePassword = await bcrypt.compare(newPassword, data.password);
+    if (isSamePassword) {
+      return errorResponse(res, "New password must be different from the current password", 400);
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await database
+      .update(user)
+      .set({ 
+        password: hashedPassword, 
+        isTemporaryPassword: false,
+        updatedAt: new Date() 
+      })
+      .where(eq(user.id, userId));
+
+    return successResponse(res, "Password changed successfully");
+  } catch (error) {
+    return errorResponse(res, error.message, 500);
+  }
+};
+
 export {
   login,
   getVerifiedUsers,
   ForgotPassword,
   getResetPasswordLink,
-  resetPassword
+  resetPassword,
+  changePassword
 };

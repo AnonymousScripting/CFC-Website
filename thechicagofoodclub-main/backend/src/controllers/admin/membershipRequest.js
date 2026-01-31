@@ -70,6 +70,7 @@ const respondToMembershipRequest = async (req, res) => {
             phone: request.phoneNumber,
             password: hashedPassword,
             isVerified: true,
+            isTemporaryPassword: true,
           })
           .returning();
 
