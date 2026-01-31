@@ -34,8 +34,8 @@ export default function Header() {
 
   const navLinks = [
     { name: "About", id: "about" },
-    { name: "Contact", id: "contact" },
     { name: "Benefits", id: "benefits" },
+    { name: "Contact", id: "contact" },
   ];
 
   const scrollToSection = (id) => {
@@ -52,13 +52,9 @@ export default function Header() {
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-          isHome
-            ? scrolled
-              ? "bg-white shadow-md"
-              : "bg-transparent"
-            : scrolled
+          scrolled
             ? "bg-white shadow-md"
-            : "bg-black z-50"
+            : "bg-black/80 backdrop-blur-sm"
         }`}
     >
       <div className="max-w-8xl mx-auto flex justify-between items-center px-6 py-4 relative">

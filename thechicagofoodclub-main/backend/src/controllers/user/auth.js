@@ -95,7 +95,7 @@ const login = async (req, res) => {
 const editProfile = async (req, res) => {
   try {
     const userId = req.loggedInUserId;
-    const { fullName, phone, profilePicture, profilePicturePath } = req.body;
+    const { fullName, phone, profilePicture, profilePicturePath, linkedinUrl, instagramHandle, discordHandle } = req.body;
 
     if (!userId) {
       return unauthorizeResponse(res, "Unauthorized");
@@ -117,6 +117,9 @@ const editProfile = async (req, res) => {
       ...(req.body.hasOwnProperty("profilePicturePath") && {
         profilePicturePath,
       }),
+      ...(req.body.hasOwnProperty("linkedinUrl") && { linkedinUrl: linkedinUrl || null }),
+      ...(req.body.hasOwnProperty("instagramHandle") && { instagramHandle: instagramHandle || null }),
+      ...(req.body.hasOwnProperty("discordHandle") && { discordHandle: discordHandle || null }),
       updatedAt: new Date(),
     };
 

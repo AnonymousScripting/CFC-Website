@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Users, Search } from "lucide-react";
+import { Users, Search, Linkedin, Instagram, MessageCircle } from "lucide-react";
 
 export default function MemberDirectory({ members, onView, getInitials }) {
   const [search, setSearch] = useState("");
@@ -59,14 +59,51 @@ export default function MemberDirectory({ members, onView, getInitials }) {
                   {getInitials(member.fullName)}
                 </div>
               )}
-              <div className="overflow-hidden">
+              <div className="overflow-hidden flex-1">
                 <h3 className="text-lg font-semibold text-gray-800 truncate">
                   {member.fullName}
                 </h3>
-                <p className="text-sm text-gray-500 truncate">{member.email}</p>
                 <p className="text-sm text-[#c7a462] font-medium truncate">
                   {member.profession || "—"}
                 </p>
+                <div className="flex gap-2 mt-2">
+                  {member.user?.linkedinUrl && (
+                    <a
+                      href={member.user.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-[#0A66C2] hover:opacity-80"
+                      title="LinkedIn"
+                    >
+                      <Linkedin size={18} />
+                    </a>
+                  )}
+                  {member.user?.instagramHandle && (
+                    <a
+                      href={`https://instagram.com/${member.user.instagramHandle.replace('@', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-[#E4405F] hover:opacity-80"
+                      title="Instagram"
+                    >
+                      <Instagram size={18} />
+                    </a>
+                  )}
+                  {member.user?.discordHandle && (
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigator.clipboard.writeText(member.user.discordHandle);
+                      }}
+                      className="text-[#5865F2] hover:opacity-80 cursor-pointer"
+                      title={`Discord: ${member.user.discordHandle} (click to copy)`}
+                    >
+                      <MessageCircle size={18} />
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           ))

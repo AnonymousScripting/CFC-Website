@@ -54,7 +54,7 @@ const MembershipPrivileges = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center py-4">
+    <div className="min-h-screen bg-[#FBF3E4] flex items-center justify-center py-4">
       <div className="w-full bg-[#FBF3E4]">
         {/* Header Section */}
         <div className="p-8 md:p-12">

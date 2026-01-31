@@ -14,6 +14,11 @@ export function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Scroll to top when page loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -42,10 +47,10 @@ export function Login() {
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-gray-100 px-6 shadow-4xl">
-      <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md shadow-2xl">
-        <h2 className="text-4xl font-extrabold mb-6 text-center font-playfair text-[#262626]">Member Access</h2>
-         <h2 className="text-lg font-medium mb-6 text-center font-montserrat text-[#737373] leading-relaxed max-w-sm mx-auto">Welcome back to your exclusive culinary sanctuary</h2>
+    <section className="flex flex-col items-center min-h-screen bg-[#FBF3E4] px-6 pt-36 pb-12">
+      <div className="bg-white p-8 md:p-10 rounded-xl shadow-xl w-full max-w-md border border-stone-100">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center font-playfair text-[#212121] tracking-wide">Member Access</h2>
+        <p className="text-base mb-8 text-center font-montserrat text-[#737373] leading-relaxed max-w-sm mx-auto">Welcome back to your exclusive culinary sanctuary</p>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-base font-medium mb-1 text-[#404040] font-montserrat tracking-wide">Email</label>
@@ -90,7 +95,7 @@ export function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#c8a76f] text-white font-semibold px-6 py-3 w-full rounded cursor-pointer transition duration-300 hover:filter hover:saturate-150 flex justify-center items-center gap-2 font-montserrat"
+            className="bg-[#c8a76f] text-white font-semibold px-6 py-3 w-full rounded-lg cursor-pointer transition duration-300 hover:bg-[#b8963d] flex justify-center items-center gap-2 font-montserrat tracking-wide"
           >
             {loading ? (
               <svg

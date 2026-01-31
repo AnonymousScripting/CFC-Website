@@ -65,6 +65,24 @@ const editProfileSchema = z.object({
     .string()
     .min(1, "Profile picture path cannot be empty")
     .optional(),
+
+  linkedinUrl: z
+    .string()
+    .url("LinkedIn URL must be valid")
+    .optional()
+    .or(z.literal("")),
+
+  instagramHandle: z
+    .string()
+    .max(100, "Instagram handle must be under 100 characters")
+    .optional()
+    .or(z.literal("")),
+
+  discordHandle: z
+    .string()
+    .max(100, "Discord handle must be under 100 characters")
+    .optional()
+    .or(z.literal("")),
 });
 
 const contactSchema = z.object({

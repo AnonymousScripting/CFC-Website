@@ -130,7 +130,7 @@
 //   );
 // }
 
-import { X, CheckCircle, Circle } from "lucide-react";
+import { X, Linkedin, Instagram, MessageCircle } from "lucide-react";
 import { format } from "date-fns";
 
 
@@ -163,9 +163,40 @@ export default function ApprovedMemberModal({ isOpen, onClose, member }) {
           )}
           <div className="text-center md:text-left">
             <h2 className="text-2xl font-bold text-gray-800">{member.fullName}</h2>
-            <p className="text-gray-600">{member.email}</p>
-            <p className="text-gray-600">{member.phoneNumber || "N/A"}</p>
             <p className="text-[#c7a462] font-medium">{member.profession || "N/A"}</p>
+            <div className="flex gap-3 mt-2 justify-center md:justify-start">
+              {member.user?.linkedinUrl && (
+                <a
+                  href={member.user.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-[#0A66C2] hover:opacity-80"
+                  title="LinkedIn"
+                >
+                  <Linkedin size={20} />
+                </a>
+              )}
+              {member.user?.instagramHandle && (
+                <a
+                  href={`https://instagram.com/${member.user.instagramHandle.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-[#E4405F] hover:opacity-80"
+                  title="Instagram"
+                >
+                  <Instagram size={20} />
+                </a>
+              )}
+              {member.user?.discordHandle && (
+                <button
+                  onClick={() => navigator.clipboard.writeText(member.user.discordHandle)}
+                  className="flex items-center gap-1 text-[#5865F2] hover:opacity-80"
+                  title={`Discord: ${member.user.discordHandle} (click to copy)`}
+                >
+                  <MessageCircle size={20} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -214,14 +245,48 @@ export default function ApprovedMemberModal({ isOpen, onClose, member }) {
 </div>
 
 
-          {/* Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Social Links</h3>
-            <div className="space-y-2">
-              <InfoItem label="Instagram" value={member.instagramUrl} isLink />
-              <InfoItem label="LinkedIn" value={member.linkedinUrl} isLink />
+          {/* Links - Show user's social links from profile */}
+          {(member.user?.linkedinUrl || member.user?.instagramHandle || member.user?.discordHandle) && (
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Connect</h3>
+              <div className="flex flex-wrap gap-4">
+                {member.user?.linkedinUrl && (
+                  <a
+                    href={member.user.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-[#0A66C2] text-white rounded-lg hover:opacity-90"
+                  >
+                    <Linkedin size={18} />
+                    LinkedIn
+                  </a>
+                )}
+                {member.user?.instagramHandle && (
+                  <a
+                    href={`https://instagram.com/${member.user.instagramHandle.replace('@', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#833AB4] via-[#E4405F] to-[#FCAF45] text-white rounded-lg hover:opacity-90"
+                  >
+                    <Instagram size={18} />
+                    Instagram
+                  </a>
+                )}
+                {member.user?.discordHandle && (
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(member.user.discordHandle);
+                      alert(`Discord handle copied: ${member.user.discordHandle}`);
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#5865F2] text-white rounded-lg hover:opacity-90"
+                  >
+                    <MessageCircle size={18} />
+                    {member.user.discordHandle}
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Approved Date */}
 <div>

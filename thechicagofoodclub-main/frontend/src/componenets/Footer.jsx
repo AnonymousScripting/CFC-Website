@@ -117,7 +117,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-center gap-4 items-center">
           <p className="mb-4 md:mb-0 text-sm font-montserrat">
-            © 2025 Chicago Food Club. All rights reserved.
+            © {new Date().getFullYear()} Chicago Food Club. All rights reserved.
           </p>
           <div className="flex space-x-4 font-montserrat text-sm">
             <a href="/privacy" className="hover:text-[#c7a462] transition">

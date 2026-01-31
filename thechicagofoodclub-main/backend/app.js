@@ -10,6 +10,7 @@ app.use(express.json());
 const allowedOrigins = [
   "http://208.110.83.16:91",
   "http://localhost:5173",
+  "http://localhost:5174",
   "http://208.110.83.16",
   "http://3.129.250.130",
   "https://thechicagofoodclub.com",
@@ -19,7 +20,18 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (mobile apps, curl, etc)
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      // Allow devtunnels for development
+      if (origin.includes('.devtunnels.ms')) {
+        callback(null, origin);
+        return;
+      }
+      // Allow whitelisted origins
+      if (allowedOrigins.includes(origin)) {
         callback(null, origin);
       } else {
         callback(new Error("Not allowed by CORS"));

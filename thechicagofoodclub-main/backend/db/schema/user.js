@@ -24,6 +24,9 @@ const user = pgTable("users", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
   isActive: boolean("is_active").default(true),
+  linkedinUrl: varchar("linkedin_url", { length: 255 }),
+  instagramHandle: varchar("instagram_handle", { length: 100 }),
+  discordHandle: varchar("discord_handle", { length: 100 }),
 });
 
 const userRelations = relations(user, ({ one, many }) => ({

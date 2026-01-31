@@ -2,7 +2,6 @@ import express from "express";
 import {
   login,
   getVerifiedUsers,
-  ForgotPassword,
   getResetPasswordLink,
   resetPassword,
   changePassword

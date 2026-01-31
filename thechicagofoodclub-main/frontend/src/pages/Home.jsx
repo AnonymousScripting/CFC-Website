@@ -4,7 +4,6 @@ import HeroSection from "../componenets/HeroSection";
 import AboutClub from "../componenets/AboutClub";
 import ContactSection from "../componenets/ContactSection";
 import JoinForm from "../componenets/JoinForm";
-import Footer from "../componenets/Footer";
 import MembershipPrivileges from "../componenets/MembershipPrivileges";
 
 export default function Home() {
@@ -24,23 +23,24 @@ export default function Home() {
         <HeroSection />
       </section>
 
-      <section id="about">
-        <AboutClub />
-      </section>
+      {/* Seamless content wrapper - overlaps Hero to prevent dark gaps */}
+      <div className="bg-[#FBF3E4] -mt-1 relative z-10">
+        <section id="about" className="scroll-mt-20 -mt-px">
+          <AboutClub />
+        </section>
 
-      <section id="benefits">
-        <MembershipPrivileges />
-      </section>
+        <section id="benefits" className="scroll-mt-20 -mt-px">
+          <MembershipPrivileges />
+        </section>
 
-      <section id="join">
-        <JoinForm />
-      </section>
+        <section id="join" className="scroll-mt-20 -mt-px">
+          <JoinForm />
+        </section>
 
-        <section id="contact">
-        <ContactSection />
-      </section>
-
-      <Footer />
+        <section id="contact" className="scroll-mt-20 -mt-px">
+          <ContactSection />
+        </section>
+      </div>
     </>
   );
 }

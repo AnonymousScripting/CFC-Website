@@ -169,7 +169,7 @@ const handleSubmit = async (e) => {
   formData.membershipAgreement && Object.keys(validationErrors).length === 0;
 
   return (
-    <div className="mt-16 min-h-screen bg-white flex flex-col items-center justify-center mt-24 px-4 sm:px-6 md:px-0">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center py-20 px-4 sm:px-6 md:px-0 border-t border-stone-200">
       <div className="max-w-3xl w-full text-center">
         <p className="text-[#c8a76f] tracking-widest text-sm mb-4 font-montserrat">JOIN OUR COMMUNITY</p>
 

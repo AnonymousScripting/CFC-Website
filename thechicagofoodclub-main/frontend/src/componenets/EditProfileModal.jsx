@@ -13,6 +13,9 @@ export default function EditProfileModal({
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
     phone: user?.phone || "",
+    linkedinUrl: user?.linkedinUrl || "",
+    instagramHandle: user?.instagramHandle || "",
+    discordHandle: user?.discordHandle || "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -31,6 +34,9 @@ export default function EditProfileModal({
     noChanges =
       formData.fullName.trim() === (user?.fullName || "").trim() &&
       formData.phone.trim() === (user?.phone || "").trim() &&
+      formData.linkedinUrl.trim() === (user?.linkedinUrl || "").trim() &&
+      formData.instagramHandle.trim() === (user?.instagramHandle || "").trim() &&
+      formData.discordHandle.trim() === (user?.discordHandle || "").trim() &&
       !formData.file;
 
     if (noChanges) {
@@ -53,6 +59,9 @@ export default function EditProfileModal({
           fullName: formData.fullName,
           phone: formData.phone,
           profilePicture: avatarUrl,
+          linkedinUrl: formData.linkedinUrl,
+          instagramHandle: formData.instagramHandle,
+          discordHandle: formData.discordHandle,
         },
         {
           headers: {
@@ -165,6 +174,42 @@ export default function EditProfileModal({
               type="text"
               name="phone"
               value={formData.phone}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">LinkedIn URL</label>
+            <input
+              type="url"
+              name="linkedinUrl"
+              placeholder="https://linkedin.com/in/yourprofile"
+              value={formData.linkedinUrl}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Instagram Handle</label>
+            <input
+              type="text"
+              name="instagramHandle"
+              placeholder="@yourhandle"
+              value={formData.instagramHandle}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Discord Handle</label>
+            <input
+              type="text"
+              name="discordHandle"
+              placeholder="username#1234"
+              value={formData.discordHandle}
               onChange={handleChange}
               className="w-full border rounded-lg p-2"
             />
